@@ -2,7 +2,9 @@
 <br>
 # Automated-ML-Application-for-Exploratory-Data-Analysis-Streamlit-Deployment-Heroku
 <br>
+
 ![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment--Heroku/blob/master/heroku-.png)
+
 <br>
 Heroku App Link : https://streamlitappautomatededa.herokuapp.com/
 <br>
