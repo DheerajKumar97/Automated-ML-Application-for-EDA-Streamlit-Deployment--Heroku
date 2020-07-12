@@ -45,7 +45,7 @@ Heroku App Link : https://streamlitappautomatededa.herokuapp.com/
 # Technologies Used
 
 ![Alt Text](https://github.com/DheerajKumar97/IPL-Score-Prediction-with-Flask-Deployment-Heroku/blob/master/static/p1.jpg)
-![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-Exploratory-Data-Analysis-Streamlit-Deployment/blob/master/STREAMLIT.jpg)
+![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment--Heroku/blob/master/Streamlit_Logo_(1).jpg)
 
 # License
 
