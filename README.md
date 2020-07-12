@@ -1,4 +1,4 @@
-![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-Exploratory-Data-Analysis-Streamlit-Deployment/blob/master/EDA.jpg)
+![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment--Heroku/blob/master/EDA.jpg)
 <br>
 # Automated-ML-Application-for-Exploratory-Data-Analysis-Streamlit-Deployment-Heroku
 <br>
