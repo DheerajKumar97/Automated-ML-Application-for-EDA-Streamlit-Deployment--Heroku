@@ -33,7 +33,7 @@ Heroku App Link : https://streamlitappautomatededa.herokuapp.com/
     
 # File Section
 
-### Main.py
+### App.py
 
 **It consists of User Defing Functions To automate The Application**
 <br>
