@@ -53,7 +53,7 @@ Heroku App Link : https://streamlitappautomatededa.herokuapp.com/
 ![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment--Heroku/blob/master/heroku-logo.png)
 # License
 
-![Alt Text](https://github.com/DheerajKumar97/Customer-Life-Time-Value-Prediction-Flask-Deployment--Heroku/blob/master/CLTP%20Analysis%20Output/GNU%20license.jpg)
+![Alt Text](https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment--Heroku/blob/master/GNU.png)
 <br>
 CopyRight 2020 DHEERAJ KUMAR
 
