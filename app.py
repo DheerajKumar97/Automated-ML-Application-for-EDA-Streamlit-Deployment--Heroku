@@ -428,9 +428,6 @@ def main():
 				label_df3=pd.DataFrame(label(df[selected_columns_names8]))
 				st.dataframe(label_df3)
 
-			if st.checkbox("Generate LabelEncoded DataFrame"):
-				st.dataframe(concat(label_df1,label_df2,label_df3,1))
-
 			if st.checkbox("Dummay Variable"):
 				df = dummy(df)
 				st.dataframe(df)
