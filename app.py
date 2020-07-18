@@ -1,4 +1,6 @@
-import streamlit as st 
+import streamlit as st
+import itertools
+from PIL import  Image
 
 # EDA Pkgs
 import pandas as pd 
@@ -9,7 +11,14 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt 
 import matplotlib
 import seaborn as sns
-from PIL import Image
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression 
+from sklearn.naive_bayes import GaussianNB
+from xgboost import XGBClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix 
 image = Image.open('cover.jpg')
 matplotlib.use("Agg")
 
@@ -193,13 +202,107 @@ def wordcloud(x):
     plt.axis("off")
     return wordcloud
 
+def Label_Encoding(x):
+    from sklearn.preprocessing import LabelEncoder
+    from sklearn import preprocessing
+    category_col =[var for var in x.columns if x[var].dtypes =="object"] 
+    labelEncoder = preprocessing.LabelEncoder()
+    mapping_dict={}
+    for col in category_col:
+        x[col] = labelEncoder.fit_transform(x[col])
+        le_name_mapping = dict(zip(labelEncoder.classes_, labelEncoder.transform(labelEncoder.classes_)))
+        mapping_dict[col]=le_name_mapping
+    return mapping_dict
+
+def IMpupter(x):
+    from sklearn.experimental import enable_iterative_imputer
+    from sklearn.impute import IterativeImputer
+    imp_mean = IterativeImputer(random_state=0)
+    x = imp_mean.fit_transform(x)
+    x = pd.DataFrame(x)
+    return x
+
+def Model_Creation(x_train,y_train,x_test,y_test):
+	pipeline_lr=Pipeline([('lr_classifier',LogisticRegression(random_state=0))])
+	pipeline_dt=Pipeline([('dt_classifier',DecisionTreeClassifier())])
+	pipeline_rf=Pipeline([('rf_classifier',RandomForestClassifier())])
+	pipeline_Nb=Pipeline([('Nb_Gaussion',GaussianNB())])
+	pipeline_XGb=Pipeline([('XGb_classifier',XGBClassifier())])
+	pipelines = [pipeline_lr, pipeline_dt, pipeline_rf,pipeline_Nb,pipeline_XGb]
+	best_accuracy=0.0
+	best_classifier=0
+	best_pipeline=""
+	pipe_dict = {0: 'Logistic Regression', 1: 'Decision Tree', 2: 'RandomForest',3:'GaussianNB',4:'XGBClassifier'}
+	for pipe in pipelines:
+		pipe.fit(x_train, y_train)
+	for i,model in enumerate(pipelines):
+		# return model.score(x_test,y_test)
+		return (classification_report(y_test,model.predict(x_test)))
+
+def Decision_Tree(x_train,y_train,x_test,y_test):
+	from sklearn.pipeline import Pipeline
+	pipeline_dt=Pipeline([('dt_classifier',DecisionTreeClassifier())])
+	pipelines = [pipeline_dt]
+	best_accuracy=0.0
+	best_classifier=0
+	best_pipeline=""
+	pipe_dict = { 0: 'Decision Tree'}
+	for pipe in pipelines:
+		pipe.fit(x_train, y_train)
+	for i,model in enumerate(pipelines):
+		# return model.score(x_test,y_test)
+		return (classification_report(y_test,model.predict(x_test)))
+
+def RandomForest(x_train,y_train,x_test,y_test):
+	from sklearn.pipeline import Pipeline
+	pipeline_rf=Pipeline([('rf_classifier',RandomForestClassifier())])
+	pipelines = [pipeline_rf]
+	best_accuracy=0.0
+	best_classifier=0
+	best_pipeline=""
+	pipe_dict = { 0: 'RandomForest'}
+	for pipe in pipelines:
+		pipe.fit(x_train, y_train)
+	for i,model in enumerate(pipelines):
+		# return model.score(x_test,y_test)
+		return (classification_report(y_test,model.predict(x_test)))
+
+def naive_bayes(x_train,y_train,x_test,y_test):
+	from sklearn.pipeline import Pipeline
+	pipeline_Nb=Pipeline([('Nb_Gaussion',GaussianNB())])
+	pipelines = [pipeline_Nb]
+	best_accuracy=0.0
+	best_classifier=0
+	best_pipeline=""
+	pipe_dict = { 0: 'GaussianNB'}
+	for pipe in pipelines:
+		pipe.fit(x_train, y_train)
+	for i,model in enumerate(pipelines):
+		# return model.score(x_test,y_test)
+		return (classification_report(y_test,model.predict(x_test)))
+
+def XGb_classifier(x_train,y_train,x_test,y_test):
+	pipeline_XGb=Pipeline([('XGb_classifier',XGBClassifier())])
+	pipelines = [pipeline_XGb]
+	best_accuracy=0.0
+	best_classifier=0
+	best_pipeline=""
+	pipe_dict = {0:'XGBClassifier'}
+	for pipe in pipelines:
+		pipe.fit(x_train, y_train)
+	for i,model in enumerate(pipelines):
+		# return model.score(x_test,y_test)
+		return (classification_report(y_test,model.predict(x_test)))
+
+
+
 st.image(image, use_column_width=True)   
 def main():
 	st.title("Machine Learning Application for Automated EDA")
 	
 	st.info("This Web Application is created and maintained by *_DHEERAJ_ _KUMAR_ _K_*")
 	"""https://github.com/DheerajKumar97""" 
-	activities = ["General EDA","EDA For Linear Models","Feature Engineering","Model Building [IN Processs]"]	
+	activities = ["General EDA","EDA For Linear Models","Feature Engineering","Model Building"]	
 	choice = st.sidebar.selectbox("Select Activities",activities)
 
 
@@ -428,6 +531,9 @@ def main():
 				label_df3=pd.DataFrame(label(df[selected_columns_names8]))
 				st.dataframe(label_df3)
 
+			if st.checkbox("Generate LabelEncoded DataFrame"):
+				st.dataframe(concat(label_df1,label_df2,label_df3,1))
+
 			if st.checkbox("Dummay Variable"):
 				df = dummy(df)
 				st.dataframe(df)
@@ -437,8 +543,8 @@ def main():
 				st.dataframe(df)
 
 	elif choice == 'Model Building':
-		st.subheader("Model Building [IN Processs]")
-		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx"])
+		st.subheader("Model Building")
+		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx", "tsv"])
 		if data is not None:
 			df = pd.read_csv(data)
 			st.dataframe(df.head())
@@ -456,6 +562,18 @@ def main():
 			if st.checkbox("Select Dependent Data"):
 				y = sep_df.iloc[:,-1]
 				st.dataframe(y)
+
+			if st.checkbox("Dummay Variable"):
+				x = dummy(x)
+				st.dataframe(x)
+
+			if st.checkbox("IMpupter "):
+				x = IMpupter(x)
+				st.dataframe(x)
+
+			st.subheader("TRAIN TEST SPLIT")
+
+
 			if st.checkbox("Select X Train"):
 				from sklearn.model_selection import train_test_split
 				x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
@@ -475,6 +593,29 @@ def main():
 				from sklearn.model_selection import train_test_split
 				x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
 				st.dataframe(y_test)
+
+			st.subheader("MODEL BUILDING")
+
+			if st.checkbox("Logistic Regression "):
+				x = Model_Creation(x_train,y_train,x_test,y_test)
+				st.write(x)
+
+			if st.checkbox("Decision Tree "):
+				x = Decision_Tree(x_train,y_train,x_test,y_test)
+				st.write(x)
+
+			if st.checkbox("Random Forest "):
+				x = RandomForest(x_train,y_train,x_test,y_test)
+				st.write(x)
+
+			if st.checkbox("naive_bayes "):
+				x = naive_bayes(x_train,y_train,x_test,y_test)
+				st.write(x)
+
+			if st.checkbox("XGB Classifier "):
+				x = XGb_classifier(x_train,y_train,x_test,y_test)
+				st.write(x)
+
 
 	st.markdown('Automation is **_really_ _cool_**.')
 	st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
