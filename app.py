@@ -1,7 +1,6 @@
 import streamlit as st
 import itertools
 from PIL import Image
-
 # EDA Pkgs
 import pandas as pd 
 import numpy as np 
@@ -302,7 +301,7 @@ def main():
 	
 	st.info("This Web Application is created and maintained by *_DHEERAJ_ _KUMAR_ _K_*")
 	"""https://github.com/DheerajKumar97""" 
-	activities = ["General EDA","EDA For Linear Models","Feature Engineering","Model Building for Classification Problem"]	
+	activities = ["General EDA","EDA For Linear Models","Model Building for Classification Problem"]	
 	choice = st.sidebar.selectbox("Select Activities",activities)
 
 
@@ -480,67 +479,6 @@ def main():
 			if st.button("Generate chi square test"):
 				st.write(check_cat_relation(df[conn1],df[conn2],0.5))
 			
-
-
-	elif choice == 'Feature Engineering':
-		st.subheader("Feature Engineering")
-		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx"])
-		if data is not None:
-			df = pd.read_csv(data)
-			st.dataframe(df.head())
-			st.success("Data Frame Loaded successfully")
-
-			if st.checkbox("Show Selected Columns1"):
-				selected_columns = st.multiselect("Select Columns1",show_columns(df))
-				new_df = df[selected_columns]
-				st.dataframe(new_df)
-
-			if st.checkbox("Numerical Variables"):
-				num_df = Numerical_variables(df)
-				numer_df=pd.DataFrame(num_df)                
-				st.dataframe(numer_df)
-
-			if st.checkbox("Categorical Variables"):
-				new_df = categorical_variables(df)
-				catego_df=pd.DataFrame(new_df)                
-				st.dataframe(catego_df)
-
-			if st.checkbox("DropNA Variable"):
-				df = imputee(df)
-				st.dataframe(df)
-
-			if st.checkbox("Columns Missing after DropNA"):
-				st.write(Show_Missing2(df))
-
-			all_columns_names7 = show_columns(df)          
-			selected_columns_names6 = st.selectbox("Select Columns FE ",all_columns_names7)
-			if st.button("Label Encode"):
-				label_df1=pd.DataFrame(label(df[selected_columns_names6]))
-				st.dataframe(label_df1)
-			
-
-			all_columns_names7 = show_columns(df)           
-			selected_columns_names5 = st.selectbox("Select Columns FE2 ",all_columns_names7)
-			if st.button("Label Encode Var 2"):
-				label_df2=pd.DataFrame(label(df[selected_columns_names5]))
-				st.dataframe(label_df2)
-
-			all_columns_names8 = show_columns(df)           
-			selected_columns_names8 = st.selectbox("Select Columns FE3 ",all_columns_names8)
-			if st.button("Label Encode Var 3"):
-				label_df3=pd.DataFrame(label(df[selected_columns_names8]))
-				st.dataframe(label_df3)
-
-			if st.checkbox("Generate LabelEncoded DataFrame"):
-				st.dataframe(concat(label_df1,label_df2,label_df3,1))
-
-			if st.checkbox("Dummay Variable"):
-				df = dummy(df)
-				st.dataframe(df)
-
-			if st.checkbox("Principle Component Analysis"):
-				df = PCA(df,10)
-				st.dataframe(df)
 
 	elif choice == 'Model Building for Classification Problem':
 		st.subheader("Model Building for Classification Problem")
