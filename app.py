@@ -1,5 +1,6 @@
 import streamlit as st
 import itertools
+from PIL import Image
 
 # EDA Pkgs
 import pandas as pd 
