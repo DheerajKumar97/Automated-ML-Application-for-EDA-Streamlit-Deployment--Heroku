@@ -161,9 +161,9 @@ from scipy.stats import anderson
 def Anderson_test(a):
     return anderson(a)
 
-def PCA(x,y):
+def PCA(x):
     from sklearn.decomposition import PCA
-    pca =PCA(n_components=y)
+    pca =PCA(n_components=8)
     principlecomponents = pca.fit_transform(x)
     principledf = pd.DataFrame(data = principlecomponents)
     return principledf
@@ -509,8 +509,8 @@ def main():
 				x = IMpupter(x)
 				st.dataframe(x)
 
-			if st.checkbox("Compute Principle Component Analysis"):
-				x = PCA(x,8)
+			if st.checkbox("Compute Principle Component Analysis  [Optional]"):
+				x = PCA(x)
 				st.dataframe(x)
 
 			st.subheader("TRAIN TEST SPLIT")
