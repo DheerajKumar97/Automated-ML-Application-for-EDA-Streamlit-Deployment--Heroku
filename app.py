@@ -302,7 +302,7 @@ def main():
 	
 	st.info("This Web Application is created and maintained by *_DHEERAJ_ _KUMAR_ _K_*")
 	"""https://github.com/DheerajKumar97""" 
-	activities = ["General EDA","EDA For Linear Models","Feature Engineering","Model Building"]	
+	activities = ["General EDA","EDA For Linear Models","Feature Engineering","Model Building for Classification Problem"]	
 	choice = st.sidebar.selectbox("Select Activities",activities)
 
 
@@ -360,24 +360,24 @@ def main():
 
 			all_columns_names = show_columns(df)
 			all_columns_names1 = show_columns(df)            
-			selected_columns_names = st.selectbox("Select Columns Cross Tb",all_columns_names)
-			selected_columns_names1 = st.selectbox("Select Columns Cross",all_columns_names1)
+			selected_columns_names = st.selectbox("Select Column 1 For Cross Tabultion",all_columns_names)
+			selected_columns_names1 = st.selectbox("Select Column 2 For Cross Tabultion",all_columns_names1)
 			if st.button("Generate Cross Tab"):
 				st.dataframe(pd.crosstab(df[selected_columns_names],df[selected_columns_names1]))
 
 
 			all_columns_names3 = show_columns(df)
 			all_columns_names4 = show_columns(df)            
-			selected_columns_name3 = st.selectbox("Select Columns Pearsonr",all_columns_names3)
-			selected_columns_names4 = st.selectbox("Select Pearsonr Correlation",all_columns_names4)
+			selected_columns_name3 = st.selectbox("Select Column 1 For Pearsonr Correlation (Numerical Columns)",all_columns_names3)
+			selected_columns_names4 = st.selectbox("Select Column 2 For Pearsonr Correlation (Numerical Columns)",all_columns_names4)
 			if st.button("Generate Pearsonr Correlation"):
 				df=pd.DataFrame(Show_pearsonr(imp_df[selected_columns_name3],imp_df[selected_columns_names4]),index=['Pvalue', '0'])
 				st.dataframe(df)  
 
 			spearmanr3 = show_columns(df)
 			spearmanr4 = show_columns(df)            
-			spearmanr13 = st.selectbox("Select Columns spearmanr3",spearmanr4)
-			spearmanr14 = st.selectbox("Select spearmanr4 Correlation",spearmanr4)
+			spearmanr13 = st.selectbox("Select Column 1 For spearmanr Correlation (Categorical Columns)",spearmanr4)
+			spearmanr14 = st.selectbox("Select Column 2 For spearmanr Correlation (Categorical Columns)",spearmanr4)
 			if st.button("Generate spearmanr Correlation"):
 				df=pd.DataFrame(Show_spearmanr(catego_df[spearmanr13],catego_df[spearmanr14]),index=['Pvalue', '0'])
 				st.dataframe(df)
@@ -385,20 +385,20 @@ def main():
 			st.subheader("UNIVARIATE ANALYSIS")
 			
 			all_columns_names = show_columns(df)         
-			selected_columns_names = st.selectbox("Select Columns ",all_columns_names)
-			if st.checkbox("Show Histogram for variable"):
+			selected_columns_names = st.selectbox("Select Column for Histogram ",all_columns_names)
+			if st.checkbox("Show Histogram for Selected variable"):
 				st.write(show_hist(df[selected_columns_names]))
 				st.pyplot()		
 
 			all_columns_names = show_columns(df)         
 			selected_columns_names = st.selectbox("Select Columns Distplot ",all_columns_names)
-			if st.checkbox("Show DisPlot for variable"):
+			if st.checkbox("Show DisPlot for Selected variable"):
 				st.write(Show_DisPlot(df[selected_columns_names]))
 				st.pyplot()
 
 			all_columns_names = show_columns(df)         
 			selected_columns_names = st.selectbox("Select Columns CountPlot ",all_columns_names)
-			if st.checkbox("Show CountPlot for variable"):
+			if st.checkbox("Show CountPlot for Selected variable"):
 				st.write(Show_CountPlot(df[selected_columns_names]))
 				st.pyplot()
 
@@ -406,22 +406,22 @@ def main():
 
 			Scatter1 = show_columns(df)
 			Scatter2 = show_columns(df)            
-			Scatter11 = st.selectbox("Select First Varibale",Scatter1)
-			Scatter22 = st.selectbox("Select Second Varibale",Scatter2)
+			Scatter11 = st.selectbox("Select Column 1 For Scatter Plot (Numerical Columns)",Scatter1)
+			Scatter22 = st.selectbox("Select Column 2 For Scatter Plot (Numerical Columns)",Scatter2)
 			if st.button("Generate PLOTLY Scatter PLOT"):
 				st.pyplot(plotly(df,df[Scatter11],df[Scatter22]))
                 
 			bar1 = show_columns(df)
 			bar2 = show_columns(df)            
-			bar11 = st.selectbox("Select Varibale1",bar1)
-			bar22 = st.selectbox("Select Varibale2",bar2)
+			bar11 = st.selectbox("Select Column 1 For Bar Plot ",bar1)
+			bar22 = st.selectbox("Select Column 2 For Bar Plot ",bar2)
 			if st.button("Generate PLOTLY histogram PLOT"):
 				st.pyplot(plotly_histogram(df,df[bar11],df[bar22]))                
 
 			violin1 = show_columns(df)
 			violin2 = show_columns(df)            
-			violin11 = st.selectbox("violin1",violin1)
-			violin22 = st.selectbox("violin2",violin2)
+			violin11 = st.selectbox("Select Column 1 For violin Plot",violin1)
+			violin22 = st.selectbox("Select Column 2 For violin Plot",violin2)
 			if st.button("Generate PLOTLY violin PLOT"):
 				st.pyplot(plotly_violin(df,df[violin11],df[violin22]))  
 
@@ -542,24 +542,24 @@ def main():
 				df = PCA(df,10)
 				st.dataframe(df)
 
-	elif choice == 'Model Building':
-		st.subheader("Model Building")
+	elif choice == 'Model Building for Classification Problem':
+		st.subheader("Model Building for Classification Problem")
 		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx", "tsv"])
 		if data is not None:
 			df = pd.read_csv(data)
 			st.dataframe(df.head())
 			st.success("Data Frame Loaded successfully")
 
-			if st.checkbox("Show Selected Columns for target"):
-				selected_columns_ = st.multiselect("Select Columns for seperation",show_columns(df))
+			if st.checkbox("Select your Variables  (Target Variable should be at last)"):
+				selected_columns_ = st.multiselect("Select Columns for seperation ",show_columns(df))
 				sep_df = df[selected_columns_]
 				st.dataframe(sep_df)
 
-			if st.checkbox("Select Indpendent Data"):
+			if st.checkbox("Show Indpendent Data"):
 				x = sep_df.iloc[:,:-1]
 				st.dataframe(x)
 
-			if st.checkbox("Select Dependent Data"):
+			if st.checkbox("Show Dependent Data"):
 				y = sep_df.iloc[:,-1]
 				st.dataframe(y)
 
@@ -569,6 +569,10 @@ def main():
 
 			if st.checkbox("IMpupter "):
 				x = IMpupter(x)
+				st.dataframe(x)
+
+			if st.checkbox("Compute Principle Component Analysis"):
+				x = PCA(x,8)
 				st.dataframe(x)
 
 			st.subheader("TRAIN TEST SPLIT")
