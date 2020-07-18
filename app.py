@@ -599,6 +599,7 @@ def main():
 				st.dataframe(y_test)
 
 			st.subheader("MODEL BUILDING")
+			st.write("Build youe BaseLine Model")
 
 			if st.checkbox("Logistic Regression "):
 				x = Model_Creation(x_train,y_train,x_test,y_test)
