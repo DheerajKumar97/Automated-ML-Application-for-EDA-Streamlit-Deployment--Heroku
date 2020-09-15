@@ -1,12 +1,9 @@
 import streamlit as st
 import itertools
-# EDA Pkgs
 import pandas as pd 
 import numpy as np 
 from scipy.stats import pearsonr
 from scipy import stats
-
-# Data Viz Pkg
 import matplotlib.pyplot as plt 
 import plotly.express as px
 import matplotlib
