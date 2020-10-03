@@ -427,7 +427,7 @@ def main():
 	if choice == 'General EDA':
 		st.subheader("Exploratory Data Analysis")
 
-		data = st.file_uploader("Upload a Dataset", type=["csv", "txt"])
+		data = st.file_uploader("Upload a Dataset", type=["csv"])
 		if data is not None:
 			df = load.read_csv(data)
 			st.dataframe(df.head())
@@ -572,7 +572,7 @@ def main():
 
 	elif choice == 'EDA For Linear Models':
 		st.subheader("EDA For Linear Models")
-		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx", "tsv"])
+		data = st.file_uploader("Upload a Dataset", type=["csv"])
 		if data is not None:
 			df = load.read_csv(data)
 			st.dataframe(df.head())
@@ -610,7 +610,7 @@ def main():
 
 	elif choice == 'Model Building for Classification Problem':
 		st.subheader("Model Building for Classification Problem")
-		data = st.file_uploader("Upload a Dataset", type=["csv", "txt", "xlsx", "tsv"])
+		data = st.file_uploader("Upload a Dataset", type=["csv"])
 		if data is not None:
 			df = load.read_csv(data)
 			st.dataframe(df.head())
