@@ -7,7 +7,7 @@
 
 <br>
 Heroku App Link : https://streamlitappautomatededa.herokuapp.com/
-<br>
+<br><br>
 
 # Table Of Contents
 - [PROJECT GOAL](#PROJECT-GOAL)
